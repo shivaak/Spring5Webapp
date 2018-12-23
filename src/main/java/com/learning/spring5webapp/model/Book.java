@@ -3,6 +3,7 @@ package com.learning.spring5webapp.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 /**
  * @author shivaak
@@ -23,6 +25,9 @@ public class Book {
 	private Long id;
 	private String name;
 	private String desc;
+	
+	@OneToOne
+	private Publisher publisher;
 	
 	@ManyToMany
 	@JoinTable(name = "book_author", joinColumns = @JoinColumn(name = "book_id"),
@@ -107,10 +112,18 @@ public class Book {
 		return true;
 	}
 
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
+
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", desc=" + desc + ", authors=" + authors + "]";
-	}
-	
+		return "Book [id=" + id + ", name=" + name + ", desc=" + desc + ", publisher=" + publisher + ", authors="
+				+ authors + "]";
+	}	
 	
 }
